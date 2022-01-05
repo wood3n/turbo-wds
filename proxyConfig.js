@@ -1,5 +1,5 @@
 module.exports = {
   "/api": {
-    target: "http://127.0.0.2"
+    target: "http://127.0.0.1"
   }
 }

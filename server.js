@@ -10,17 +10,21 @@ const server = new WebpackDevServer({
   proxy
 }, compiler);
 
-// 下面这句代码会导致wds重启而报错：Error [ERR_SERVER_ALREADY_LISTEN]: Listen method has been called more than once without closing.
-server.startCallback(() => {
-  watchConfig();
-});
+function createServer() {
+  const server = new WebpackDevServer({
+    ...webpackConfig.devServer,
+    proxy
+  }, compiler);
 
-function watchConfig() {
-  chokidar.watch('./proxyConfig.js').on('change', async () => {
-    console.log("checked dev-server proxy changes, restarting server");
-    await server.stop();
-    await server.start();
+  server.startCallback(() => {
+    const watcher = chokidar.watch('./proxyConfig.js').on('change', () => {
+      console.log("checked dev-server proxy changes, restarting server");
+      server.stopCallback(() => {
+        watcher.close();
+        createServer();
+      });
+    });
   });
 }
 
-
+createServer();
