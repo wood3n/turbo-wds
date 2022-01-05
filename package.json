@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "vue": "^2.6.14",
+    "webpack": "^5.65.0",
+    "webpack-dev-server": "^4.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "chokidar": "^3.5.2"
+  }
+}
